@@ -115,7 +115,7 @@ hexo deploy
 
 在terminal中输入以下命令：
 ```bash
-hexo new "文章题目"
+hexo new post "文章题目"
 ```
 命令执行完后，就会发现在/blog/source/_post中多了一个“文章题目.md"文件，这就是我们刚才新建的博文。
 Hexo支持markdown格式的文档，我们可以使用文本编辑器(如Sublime Text)或者markdown编辑器(如chrome app Marxico)，实现博文更新。
