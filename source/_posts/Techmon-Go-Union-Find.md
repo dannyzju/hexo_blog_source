@@ -1,7 +1,9 @@
 ---
-title: 'Techmon Go 4: Union Find'
+title: 'Data Structure & Algorithms Notes: Union Find'
 date: 2016-07-30 13:37:32
-tags: Techmon Go, Union Find
+tags: 
+- Data Structure & Algorithms
+- Union Find
 ---
 ## 1. Union Find Definition
 In computer science, a disjoint-set data structure, also called a union–find data structure or merge–find set, is a data structure that keeps track of a set of elements partitioned into a number of disjoint (nonoverlapping) subsets. It supports two useful operations:

@@ -1,7 +1,9 @@
 ---
-title: 'Techmon Go 2: Topological Sort'
+title: 'Data Structure & Algorithms Notes: Topological Sort'
 date: 2016-07-16 20:39:07
-tags: TechmonGo TopologicalSort
+tags: 
+- Data Structure & Algorithms
+- TopologicalSort
 ---
 ### I. Topological Sort Definition
 First of all, what is topological Sort? Here is the definition from WikiPedia

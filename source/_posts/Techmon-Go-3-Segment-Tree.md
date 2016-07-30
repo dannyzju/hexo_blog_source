@@ -1,7 +1,9 @@
 ---
-title: 'Techmon Go 3: Segment Tree'
+title: 'Data Structure & Algorithms Notes: Segment Tree'
 date: 2016-07-17 23:21:47
-tags: Techmon Go, Segment Tree
+tags: 
+- Data Structure & Algorithms
+- Segment Tree
 ---
 
 ## 1. Segment Tree Definition

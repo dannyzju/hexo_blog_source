@@ -1,7 +1,9 @@
 ---
-title: 'Techmon Go 1: Hash'
+title: 'Data Structure & Algorithms Notes: Hash'
 date: 2016-07-14 21:57:32
-tags: TechmonGo Hash
+tags: 
+- Data Structure & Algorithms
+- Hash
 ---
 ### I. Hash Function
 ##### a. 31

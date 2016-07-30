@@ -1,7 +1,9 @@
 ---
 title: Learn Python Basics Learning Notes I
 date: 2016-06-27 23:07:30
-tags: python tech
+tags: 
+- python
+- tech
 ---
 ## I. Python for Beginners
 ### Introduction
