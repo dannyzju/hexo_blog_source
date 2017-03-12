@@ -10,12 +10,12 @@ Class notes for Cloud Computing Concepts by Indranil Gupta @ Coursera
 
 (初稿完成于 02/25/2017)
 
-## 0. Pre-Requirements
-### 0.1. Basic Data Structures
+## Pre-Requirements
+### Basic Data Structures
 - Queue: First-in First-out
 - Stack: First-in Last-out
-### 0.2. Process: A Program in Action
-### 0.3. Computer Architecture (Simplified)
+### Process: A Program in Action
+### Computer Architecture (Simplified)
 ![Simplified Computer Architecture](https://lh3.googleusercontent.com/GMfMsR3vkGyXLt45RnixisMvF_Ye2G23wlVecbaInkuFRZ3kBjQR6JgAdbllBIRzEBIPtrEWLBjVNfQ1jHR92PZ4TuSN9gz99H3P3GCPEiulcbjmTcsmJmlS5E8VPNnoKPnUtWvgJ8XNQPJ6l37_Ml6_jevJMrfOPSjM1dpYxKCLexbEUp80vtJG72QhcHlKVdrr6STCmlcBhz3I5oqnm89Yzyf2XWxvj3cguIL3Gw4XFE2z6oyps5lIu9ZhJycag2H1W1j9AYXwJYSPF-v3rjamBOK8pMuOYNSHEDyNc5lThL09dnp_D_nKFoUBQYinj67R0H33Sc3jsRaZi8f65sPcFu-DvL2tQ2A8FmWmQg4yoSkXtZJ3ilkmfZ4NkFErQXOWMJREyG1SZFI4zjTnS0_Ve22dlxoXPNmixIH59ZBLmEndkR65ET45fpvkuiHpyoDCuUaNW_eAeEkKSaoTZDMLxUGaksmm62K9XU_lWHEiR1YwVW24V_vDYXH-Shmhpnt_qzDnBYF9NJXb321wmNmIEatmQMoc6vNXHHkNqpvEtMUiXlXEWCwrpK3_AdyOI9sCRyXL47jswkxCCANfwW3MKHppX3kHJLRJd19qrQSh5RlJ11k8eYnbZCwopaDWVjM3pbgPoXog56JSLNEKALGsUu2fUW9hbzx_aCj3EQ=w792-h798-no)
 
 - A program you write (C++/Java etc.) gets compiled to low-level machine instructions
@@ -24,13 +24,13 @@ Class notes for Cloud Computing Concepts by Indranil Gupta @ Coursera
 - As it executes each instruction, CPU loads data for instruction into memory (and cache, and registers)
 	- And does any necessary stores into memory
 - Memory can also be flushed to disk
-### 0.4. Big O() Notation
+### Big O() Notation
 - One of the most basic ways of analyzing algorithms
 - Describes ***upper bound*** on behavior of algorithm as some variable is scaled(increased) to infinity
 - Analyzes run-time (or another performance metric)
 - Worst-case performance
-### 0.5. Basic Probability
-### 0.6. DNS
+### Basic Probability
+### DNS
 - Domain Name Service
 - Collection of servers, throughout the world
 - Input to DNS: a domain name, e.g., coursera.org
@@ -38,11 +38,11 @@ Class notes for Cloud Computing Concepts by Indranil Gupta @ Coursera
 - IP address may refer to either
 	- Web server actually hosting that content, or
 	- An indirect server, e.g., a CDN(content distribution network)server, e.g., from Akamai
-### 0.7. Graphs
+### Graphs
 
-## I. Introduction to Clouds, MapReduce
-### 1. Introduction to Clouds
-#### 1.1. Why Cloud?
+## Introduction to Clouds, MapReduce
+### Introduction to Clouds
+#### Why Cloud?
 Two Categories of Clouds
 - Public Clouds: provides service to any paying customer
 	- Amazon S3(Simple Storage Service): store arbitrary datasets, pay per GB-month stored
@@ -52,7 +52,7 @@ Two Categories of Clouds
 
 Customers save time and money by using clouds.
 
-#### 1.2. What is a Cloud?
+#### What is a Cloud?
 Cloud = Lots of storage + compute cycles nearby
 - A single-site cloud (aka “Datacenter”) consists of
 	- Compute nodes (grouped into racks)
@@ -65,7 +65,7 @@ Cloud = Lots of storage + compute cycles nearby
 	- Multiple such sites
 	- Each site perhaps with a different structure and services
 
-#### 1.3. Introduction to Clouds: History
+#### Introduction to Clouds: History
 Trends: Technology
 - Doubling periods - storage: 12 months, bandwidth: 9 months（Moore's law）
 - Then and Now
@@ -83,7 +83,7 @@ In 1965, MIT’s Fernando Corbato and the other designers of the Multics operati
 Plug your thin client into the computing utility and play your favorite Intensive Compute & Communicate Application
 - Have today’s clouds brought us closer to this realty? ：）
 
-#### 1.4. Introduction to Clouds: What’s New in Today’s Clouds
+#### Introduction to Clouds: What’s New in Today’s Clouds
 ![A Cloud History of Time(1)](https://lh3.googleusercontent.com/_klWna3gomnU7K_kdB-ZgaVgvJVJ5Fd4GxFPO6RykM7Gci83sUHWyZx_u3q0hbAbLsRIOmJjQTmfiwirgvUdR2BB5GY1bt0BVmX8n4WYzTU9Q3oDGtT6RZW0WCtvxeckOclLu9_VGWcD_0oM7UARN0kYFWNBTS7lV5ego1jyvS6hKheFJMOEHawHPDv5JtqBnE-Zy4T5OaOTqSnGhMa30TxMgtDrt-AyIg_nM4lF39dVEbHRX3xI7k1U80KU3GUXe3p7kXjMgXNmXh9VJhf8ybmuckFivZp8AVbV1cc876SHIcOSwseFuLZkgX7A2zPgyF-r9h29pwTKZl6jAe82zXr5XLSbVr6l9m2axZTOd7dwRWG-3aGSxoQexEfw8x7l9JszreA8HQyfN0VhWNt3hEqUCP1fjpr5LUVcO-p0l82mHug3wT3gDI5q7CXpWwA6HbggJjUx79dedUHM9AcNWL14VtUo81X8Q3gWnxAF86HkyZMSeF6Q_SGz9EyTyv6gaJhs6koP0NsrTyVso8cVp2YN6X-M1nD6sVrjMxhfiiSpUhnAdl_tZTZ1f0POZVEk_path5pCMNjswTkn-A-u5JemaImNoT4Mxb3NdUj4p4N4HQwZ6sRPiIiUAK_YY9otUl_dzvtT0SmK3ZrnXPrWKCeTqMYT8e5vHT6xIUkkaw=w915-h516-no)
 
 ![A Cloud History of Time(2)](https://lh3.googleusercontent.com/3qBz0i1ihRrboZWMiF0JXRt1OnW6G8sObd6p8n3v5fbTWQ7vgcuVNkCYXBWhxeGHvmG4ahd7VR_c_YnBpfDXjv5x_fflfzUCI9Um01TLRt0G_x6jPThN6drwTUHQGM88lsdxx3h28ef3fxrZTJUAzk-lKImn84ENuACf6Rh-Z8TEvyjDa1btfQzIONnSOGJJBiW52eQKmmZqfFgZpBqBZRd-0eRuK80h0kTNwgUJSe5xWDJf8D1tkfaeNCxM8I34QVY826nz58MRD3kmiQSnCht8QQdN92atO89h_uoyu8v8bMnvChVpn_KGGRNbGy99SGdulBcY5I8BquYMa4VBJsZ0vO5wrriIPmVS9Z0IkHQqER5fbWo7t95HLZmhzJhmFRsDylXuWHq22jBjIqUvutGRU_TYKivQ3mEmiaQbFZtO_xHC0V-omd49UTeRbWd2V1UbNhMTbMy9f8fpPwO_PvjHp3ENEMGFBjoNTbR4X2lWvlvF4qOsIE0F45dFZch-2SSkKX3jRH75BcnLVLZ1vYeUjYZM16JXV-2L6n8yWh7vDmbqjm_4bG70gYmIrAY_6Cd21IQvhZ9Qf5S48Es9WUv7P5xz9sFhEjSe7o9HUBXFS9XfjVnJnX5B01dfRd4G-FKDH9Sq9e3EOKvdXII-ibZbuKrth_etQWSWjAyjMA=w915-h428-no)
@@ -116,7 +116,7 @@ Four Features New in Today’s Clouds
 - Lots of open-source
 
 
-#### 1.5. Introduction to Clouds: New Aspects of Clouds
+#### Introduction to Clouds: New Aspects of Clouds
 **On-Demand Access: *AAS Classification**
 - On-demand: renting a cab vs (previously) renting a car, or buying one. E.g.:
 	- AWS Elastic Compute Cloud(EC2): a few cents to a few $ per CPU hour
@@ -160,7 +160,7 @@ Four Features New in Today’s Clouds
 - Similar numbers from other companies, e.g., Yieldex, harmony.com, etc.
 - NoSQL: MySQL is an industry standard, but Cassandra is 2400 times faster!
 
-#### 1.6. Introduction to Clouds: Economics of Clouds
+#### Introduction to Clouds: Economics of Clouds
 - Two Categories of Clouds
 	- Private clouds are accessible only to company employees
 	- Public clouds provide service to any paying customer
@@ -196,8 +196,8 @@ Four Features New in Today’s Clouds
 		- Scale, On-demand access, data-intensive, new programming
 	- Otherwise, the solutions to your problem may already exist!
 
-### 2. Clouds are Distributed Systems
-#### 2.1. A cloud is a Distributed System
+### Clouds are Distributed Systems
+#### A cloud is a Distributed System
 - A cloud consists of
 	- Hundreds to thousands of machines in a datacenter (server side)
 	- Thousands to millions of machines accessing these services (client side)
@@ -227,7 +227,7 @@ Four Features New in Today’s Clouds
 - A few years from now, there may be a new nickname for distributed systems
 	- The core concepts will remain the same, and they will continue to be used in real systems
 
-#### 2.2. What is a Distributed System?
+#### What is a Distributed System?
 *A distributed system is a collection of entities, each of which is `autonomous`, `programmable`, `asynchronous` and `failure-prone`, and which communicate through an `unreliable` communication medium*.
 
 Distributed System = Many Processes Sending and Receiving Messages through Unreliable Communication Network
@@ -248,8 +248,8 @@ Challenges in solving these problems
 - **Concurrency**: 1000s of machines interacting with each other accessing the same data
 
 
-### 3. MapReduce
-#### 3.1. MapReduce Paradigm
+### MapReduce
+#### MapReduce Paradigm
 - Terms are borrowed from Functional Language(e.g., Lisp)
 - Sample Application: `Wordcout`
 - Map:
@@ -272,7 +272,7 @@ Challenges in solving these problems
 ![Two Reduce Tasks](https://lh3.googleusercontent.com/YO_-BhfPsNjjotY8XInGVzHyqEt-r5n4wIuERO2L4eX1D-5cKBJd1A0Uw-XDIh7PRBqwijyQXcN0gj8Y69Bdkh1RXfNTjL58qgez1yCakVbr6Im-1dhHHWK-ooI5HPflgKi2JCULU7RHRFSpZzzzEGLnFQFxck9Gs57-s-ClWQbwTXUIDcbtmoVY3eG28fISvvLYu2H0Ix3zYudDOqaeoZW9T8ulLu8UDnv6QBFfx8qdKx_9cKqEdzjyiWyJ8Ta6JdbEVLiXeSSv2AjpDQBbttNrrDVr4UYZW-J26wX18UrwIXLVR-8Kze0Co1uDYSf4ty7hJ3NbSafsujDNLx4i8xJFprRzXAZGmfjloC9TOsSgKJkcyMnAISLUQZR05sOcrEimTXcsmaGjykh-j05ifeKFPxNYYr_DXVdo0PkfqHoM8KnqVEFV85LelPJJMUlYHre-FO7A416WdYF2QmwcggA1bouufP-mIVmuFAUKeGLdevIw8ZnDb9KmRL03wQPeoIhA1atABp27YBB4i-BHzF8MQkrp9CK6tGFkuBiK41z4JEKPgL_j6lQZ0delBfTGFDHfCNWLNg0l-yYkwn8s2D6JOUQE9IR1Z2UEFxmBX3cfEfcu7LVLGoaiuZ0kaS8_RHSLbCVGuccUKnWDCB63iasqFvcHcc31_rrGLHR05Q=w526-h155-no)
 
 
-#### 3.2. MapReduce Examples
+#### MapReduce Examples
 Distributed Grep
 - Input: large set of files
 - Output: lines that match pattern
@@ -306,7 +306,7 @@ Reduce task’s input is sorted (e.g., mergesort)
 - Partitioning function - partition keys across reducers based on ranges
 	- Take data distribution into account to balance reducer tasks
 
-#### 3.3. MapReduce Scheduling
+#### MapReduce Scheduling
 Externally: For user
 - Write a Map program (short), write a Reduce program(short)
 - Submit job, wait for result
@@ -352,7 +352,7 @@ The YARN Scheduler
 
 ![How a Job Gets a Container](https://lh3.googleusercontent.com/_ggVQZTdJbYM9gypXn9lHrTL8ZuPSZc0m8XYAlwrZjwWzXjwXw3A2cfV11Zd3bFFHukHOyb2smo48yF6GLUBMB0O8FBIjJhvK4ewck6JXqj4t-7YtNPDwvYIygzwk_disv1n_cG0P-W8BmIk7Tl0R0nzrM6noBYVzV35P5MQ1LV_Wrml1ZUGnCWjs2Q0j-AZDSDEAGqEJMqj5jBQ8oQH0g0pdZGtZ_HrIt4zUxiUIwAJa4Hy2j78zydM_e6WB3bELNWwmYlU2EXqMPRaWz8luLejzmXoDB2wOFuTZD0M3-fgdMijGeHXBQWAc61oA1YlquU4ZHGruG9BLSRwYvdAufhJ0_x6BjTpsMcikGQGpUO8keVgGoEfxC6AssRIEp4wwEaqWTWk-OqKLuvuXzSXx4nhHMPYGYPHbR7WNtuY6ouEdBUWjOkD7h4xXJUVamO0tdCPhxdqgZOBIxsqPpEeqdoRE9N10_wx_7P3m8iSO3I7NK0od5IhYYrbUOOdsslQsZrDoWgB2se_cZywbKH6_UhOsb4EZKTxPOalb9l5AD0S3-9cs5wdR-i6trIRgbwWnIjU2MNFXcl4UBvd13bvkfvGMZk2aduRwmJJAnZk9gxNUgLSnA4vsN_9yreclNl8Ur2rp9XfqKEz7PkUX7I33LpVKd3de3FuD9p9ZbMNzg=w1237-h765-no)
 
-#### 3.4. MapReduce Fault-Tolerance
+#### MapReduce Fault-Tolerance
 Fault Tolerance
 - Server Failure
 	- NM heartbeats to RM

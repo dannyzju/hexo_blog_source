@@ -1,0 +1,62 @@
+---
+title: 博客重大升级啦!
+date: 2017-03-11 15:22:30
+tags: tech
+---
+喜大普奔，博客迎来重大升级啦！
+
+## 更换Next主题
+其实也还是挺喜欢原来[maupassant](https://github.com/tufu9441/maupassant-hexo)主题的极简风格的，不过同样是主打简约风格的[Next](https://github.com/iissnan/hexo-theme-next)主题对于文章内目录的支持上大大好过了maupassant, 同时Next还是hexo主题页中Star最高的，作者的配置说明也非常完善，因此最终决定转投Next。
+
+具体的安装和使用说明[官方文档](http://theme-next.iissnan.com)已经写得很清楚了，在此就不再赘述。
+
+## 域名更新
+在使用了进一年的github默认域名后，想想还是打算申请一个个人的独立域名。
+### 购买域名
+关于在哪里购买域名便宜，知乎上专门有一篇文章[现在去哪里买 .com 域名最便宜？](https://www.zhihu.com/question/19551906)
+文中提到了一个在Reddit上很火的神器: [Domain Price Comparison](https://www.domcomp.com)，能够以最便宜的价格买到你需要的域名。
+
+不过在这里为了方面我就直接在Google Domains购买了dannyzhang.run。
+
+### 更新Blog Repository
+首先在博客的Repository根目录创建一个新的CNAME文件，编辑并加入你的新域名。
+![CNAME](https://lh3.googleusercontent.com/NVYuwz9SZ1oGlLRbD7rlrd0rf14IV_nK6PxPDvWWgk4R68TSqZbIeSCRe0JYJfCRICEEiQpQ66ygcXS_dDPKny5cbVvRsgytM9W0ATLorCjatOpVnknxte96NS0JOgFz6c-0eK6ZPH_2VC0w9ilvv56AN2oB9-EGew8aJfclhq0BJ4XmZilkyb-nhrmFXYP6AOqR6KRdpl5nbZztimV20MuZmcpBJGWBa0w9t-BuSUNzBxe6VzeevbSOxikrFdGWJZk676TWWzMTfMX98tBTO8rneuk8TqlJomzeR_BIzQDOndlLta590FW9jdO5kTGyoiln-SdijHTEhwr53TNS8VFJECd7LHTJQUVHKVADcU5F-FfTXuRZaYRKKfpoSlt9ZD8W9N_JIYcJLDCCeHMalvKIgFzi1XCLDqcHkf68enbNa6DcX4SZ-2AzWpJBd0UDdp0Z6Du-rTalBi0lnc9vg2Z67VZ-B9z-PDrZOmabk_GxaNtFwtZ3OezIlygOwN2QRzji_LJi9p-ZSGV-HM9s-Q41H45K-7DNN17LmJDXQ7IivviUBCZVxsF6QR_K2nP8z_N0G_2IPD2yvix5azNemIvT6hQzcHrP-WdwxfAMwWTUW-SvQbA5Ha6xaevfEIFwXEgRGkeQYXXNUohut0THt0N3rP6Gq712lqmvJ1yLSQ=w1076-h265-no)
+
+然后在博客的Repository Settings，在GitHub Pages一栏应该能看到如下状态。
+
+![GitHub Settings, GitHub Pages](https://lh3.googleusercontent.com/JFS9JhaewhSBEQUeRk2MR7ZVKRE4KuhQGr6YoKygHR6oGsa2-Bx1vsR4cvJQPWbzTW-jiyQfURHiYAnOYfWT5l6BIKtf5GGleHPZwm-fkf7LSITlz5xGWW5ZhXgrjUx8HbwgSnHTZZcNxpBMs_A2zb4H2Rc_mHt114PcrM9_X6HI3HUGxuAfqcFqe4HqMlmfUIKVTwnseUF7ds2fzw1kj2W81cxqdDw2wabWoCflUmYWKHNlGH-t1KDXjz0emGKFMGfC2w7-yd5nzT6QRdf5dXeV-7HuF-lOIUAIrZOliSrcTXJM8s93ls923u_5eioTdQ_ORn7YeSRjT78zeskjP4rFO0Su_phT8cxCW43iUtx0zdYSfMiEm7XwnaIejDDnqSOHuzrrodcgnO9-ENTTlDULlGDkOJjeLzkC7hMOsccEnTJGDEBiq0iCqmGGdi201I2v8_kIFlxTHXIRyEylNV_yTdCra3R_CCquNofwy_kJo4ZrfcQIHM2fP8nDGw2SiClISBDeil-7tSVG6DN6e9KRmbdP7Nq70pPC_Jz2tm-f3xGqyabeYUMjOWFI0xa0JUOd3wh1ERtr2038FAfPCr0LpxRML0vQ-Hi6vD7jUe4aDTGQ8dUBAZslk2hdMcpIwnEULUp0PvDb7oy6NcCvZjfNuUKiyM_FMhyREkG6iA=w1076-h407-no)
+
+
+### 配置Google Domains
+登陆Google Domains, 找到刚才购买的域名项，点击DNS
+![Goolge Domains](https://lh3.googleusercontent.com/0jjJcjXkiEpHkvnbW8v_XVmw5UdO3dxPqvuhtNC2gSPcnrpT2PiCNmGj7gxeEH9667_3s_0DfV3B_jDZpGcFZfw5Gm0ZXLf-PCXJnpvg_7pzt6PJ6SQe5Y4qUPl_2zvl0y8X7o35gv_pFDwROr5HLXvS5a1btmUrT3ZmUjR5yh2u-BAp7LQR42fLnuaw_gfoFknmdTFgquoS8Qu4gZ6NmS4EUaM-OpjZ-vHq56PbLv_mc79-g-E7mU8vtb4ZajqwhjzRSdlcJVlzy_-MGrrrj1D-mjXdJwcBevSsqFJR142mGWXGyNHP-a2bzhJrldfXdHWJaq5UPtu_L9uRJnyhS5Z9175ki1nd51gy9AM8bSOeBpsjd7mKzg1GMe4QSaqbSFDva2opkz7WIU-rhtfLakE5wKRNFeESzwiKdE7Chqcu-k7KLcaZBsq4HsmngQc8oW-7FNM5mczo6aZmPOyPQcvRUjfaenfT0GetFwwcW_UAYXsgVgCeL9oCmaecwQAU8n0DfHB0m2jWJFTT13HU_LLG08oh21K1zSzjtR8xssqnOXMtMcwVM4msMz6sAy8UMmX9l-pTn5N_ThqsdtpoB9tKOk8nsll9ur0cMwpn1FbdrDWnxVybhoT1sVXAG-OohvXFTX39XNSv4VbOqAzwljsnlgw05d-wnnaFCTcH_g=w1076-h150-no)
+
+
+在最低部的Custom resource records中新建三条记录，如下所示：
+![Custom resource records](https://lh3.googleusercontent.com/HBxiSgped6rF8RIhiMqF-QLaHykAV-m5eSD4dK1LtPs82O8RkTjMky0vqWMR6SjnYNJUTBHQP7Oyyz_zUrmxkvBgc6FUyuKyJh0zmlOIQgutV4ve32_70UfXzAw-nV7FHhG-Juds1yQ0yhxwYxL2doJSjUxywULSLYUNFxmfsQ_QyundfpyWwbunX4rWjoPM8WV_FS8jK61OO_NbJWoIcdkqe0KoyXZNf0db7WpUxI1qXyeSOs_8vq4wLgy4JBzJzjGRkaq4-ZQial3EoAxuavKtTOw4YD9MjsPLxxwNdac8s6mXciqgKi5hR_1LzUorUJMi2JUlBHiFUd-t37ZVFZnrDu3r_o1F7uBSnWXZ46TFWCWPKutv9gpYdSDLR3GtPDA4yBjVVVg7DfKDj1YiFX0_SwoD9gNrBAQgX3Ao88tmFo52dHMQ4A7GWUADVQ5kXZW6B8afLzNRPYo1zuRn4lIcYzntgc5Hg60W5f9B0vZgHcXZlNHAHGMVrIqrfgUO2dC5SEBfwDKplB8adN5bSG-egGRRqkcl_pZIVU1cW-p-vjJl8IyO3eW2ioRzA4F-Kb2qydEWZUuh70y793io-ItiuXTSMaIH_pXM8atkm15GtiyEe2rqNQk1vzLss0dylPJA_0LKOIEw8xJmNRfi56cu0EZnk7tgcsvLKgR87A=w1076-h378-no)
+
+然后访问新域名，大功告成！
+[具体可参考: How to point a domain on Google Domains to GitHub pages](http://www.curtismlarson.com/blog/2015/04/12/github-pages-google-domains/)
+
+## 板块更新
+**首页** 和旧版一样，显示最新的博客文章；
+**归档** 是所有文章的时间线，一览博客的更新历史；
+**四大分类：技术，随笔，读书，健身** 目前能想到的主要会更新的类别，会不定期整理;
+**标签**：变成了单独一个页面，更方便按标签查找文章；
+**关于**：自我介绍
+
+## 新功能
+### 评论系统
+使用了多说的插件实现评论系统，欢迎留言。：）
+
+### Baidu Analytics
+加入了Baidu Analytics，可以分析博客的访问信息。
+
+除了评论系统和Baidu Analytics之外，Next主题其实还支持很多其他的插件，安装起来都不难，具体可参考[Next官方文档](http://theme-next.iissnan.com)
+
+## Hexo常见问题解决
+之前其实在更新博客后deploy到github的过程中都能在terminal中看到error，但因为不影响正常使用就没太管。结果今天在更新到Next后又看到了新的错误，并且直接导致了标签无法正常使用。最后发现其实Hexo出现问题时一般还是比较好解决的，因为他都是依赖其他模块的，只要根据error tracks定位到具体模块，然后卸载重装即可。
+
+具体可参考如下文章：
+https://github.com/iissnan/hexo-theme-next/issues/1480
+https://neveryu.github.io/2016/12/15/hexo-next-four/
