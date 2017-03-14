@@ -1,5 +1,5 @@
 ---
-title: Cloud Computing Concepts Notes (Part I)
+title: Cloud Computing Concepts Notes 1
 date: 2017-02-25 21:21:37
 toc: true
 tags:

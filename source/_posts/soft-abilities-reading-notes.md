@@ -1,6 +1,7 @@
 ---
 title: 《软技能：代码之外的生存指南》读书笔记
 date: 2016-12-17 14:54:38
+categories: readings
 tags:
 ---
 
