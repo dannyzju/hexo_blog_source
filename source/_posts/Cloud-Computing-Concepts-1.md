@@ -2,8 +2,10 @@
 title: Cloud Computing Concepts Notes 1
 date: 2017-02-25 21:21:37
 toc: true
+categories: tech
 tags:
 - 学习笔记
+- tech
 ---
 
 Class notes for Cloud Computing Concepts by Indranil Gupta @ Coursera

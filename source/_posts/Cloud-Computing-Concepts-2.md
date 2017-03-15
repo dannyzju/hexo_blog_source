@@ -2,8 +2,10 @@
 title: Cloud Computing Concepts Notes 2
 date: 2017-03-14 08:23:37
 toc: true
+categories: tech
 tags:
 - 学习笔记
+- tech
 ---
 
 This chapter mainly introduces the following two building blocks for distributed system (in the cloud)
@@ -106,7 +108,26 @@ xy represents all possible infected-uninfected pairs.
 
 
 ### Gossip Implementations
-(To be completed)
+Some Implementations:
+- Clearinghouse and Bayou projects: email and database transactions
+- refDBMS system [PODC ’87]
+- Binodal Multicast [ACM TOCS ’99]
+- Sensor networks [Li Li et al, Infocom ’02, and PBBF, ICDCS ’05]
+- AWS EC2 and S3 Cloud (rumored). [‘00s]
+- Cassandra key-value store (and others) use gossip for maintaining membership lists
+- Usenet NNTP (Network News Transport Protocol) [’79]
+
+NNTP Inter-Server Protocol
+- Each client uploads and downloads news posts from a news server
+- Server retains news posts for a while, transmits them lazily, deletes them after a while.
+![NNTP Inter-Server Protocol](https://lh3.googleusercontent.com/Jxz9cSmiucf1j2CQMPfZ3CKVZF1oGZvI02y2rOblcAeiI1DBn5Plo_q6fl28SlPmImdV63VdEy1xjlnmc6FWpio90Le63iO579tQpwoBpliH5PJ22rsnAcBVbImas_kf3yoL1s1Vwd_tH7-YVYgwYwp8NybAGo604LTuXHMLNM1thfFn4-u0TkQBSv030O5PtKRJsohTWeFDrYOpxMJ0Y2AMU-lcx1f5cZdeYv_6mgJEDM4Uppyee8OkhbGAhbpKKL1Fx7qyhNOXAC0BcpsGo_1lMA6pNnHuoWeDaVWeIg88Ism3ZAvazxWLamEiOI9KDUd_kLwDmkq82wnez7d_yyQSvqkHuxeHvvrSRrHScFeCKdgA2O7okDPuX8P7AVErMSbYam34dqF-LfFBF5wClsk6LwF2doTz0vol2jAZGghXjG4NjfwcvMymd227EoWIxOjDFtqUDjp5yTyT4zgb2hG3tJkfX8NxpnJvhI-tyBfvynrGEYKFu82zLsOhpBDmOI-EOBl-KSRxzeU-xpprKfGMGhPtxrk3ZvnaZEbGYUAYp-oPRsfODxTVSKookhWckbelnpnAqfq3TjQhXm6epWj9xYpIC6tQYkbfRaXinT4k_PqaEpV8ehopGLRveGxyJwWCxzBTb5Fuh8TiwGhTJmXvsbiXPV6LyI6w5gW3-Q=w1552-h531-no)
+
+Summary
+- Multicast is an important problem
+- Tree-based multicast protocols
+- When concerned about scale and fault-tolerance, gossip is an attractive solution
+- Also known as epidemics
+- Fast, reliable, fault-tolerant, scalable, topology-aware.
 
 ## Membership
 (To be completed)
