@@ -16,8 +16,11 @@ avatar: /images/avatar.jpg
 # Duoshuo
 duoshuo_shortname: dannyzhg
 
-# baidu anaylytics
+# baidu analytics
 baidu_analytics: cf34824826b242e2f2924ceffd8bb1fb
+
+# google Analytics
+google_analytics: UA-93834804-1
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
