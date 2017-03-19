@@ -1,5 +1,5 @@
 ---
-title: Cloud Computing Concepts Notes 1
+title: Orientation, Introduction to Clouds, MapReduce
 date: 2017-02-25 21:21:37
 toc: true
 categories: tech
@@ -8,7 +8,7 @@ tags:
 - tech
 ---
 
-Class notes for Cloud Computing Concepts by Indranil Gupta @ Coursera
+Class notes 1 for Cloud Computing Concepts by Indranil Gupta @ Coursera
 
 (初稿完成于 02/25/2017)
 

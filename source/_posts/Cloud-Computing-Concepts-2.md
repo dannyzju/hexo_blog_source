@@ -1,5 +1,5 @@
 ---
-title: Cloud Computing Concepts Notes 2
+title: Gossip, Membership, and Grids
 date: 2017-03-14 08:23:37
 toc: true
 categories: tech
@@ -7,6 +7,10 @@ tags:
 - 学习笔记
 - tech
 ---
+
+Class notes 2 for Cloud Computing Concepts by Indranil Gupta @ Coursera
+
+(更新于 03/19/2017)
 
 This chapter mainly introduces the following two building blocks for distributed system (in the cloud)
 - Gossip or Epidemic Protocols
@@ -130,7 +134,250 @@ Summary
 - Fast, reliable, fault-tolerant, scalable, topology-aware.
 
 ## Membership
-(To be completed)
+### What is Group Membership List?
+**Failures are the norm**
+- Say, the rate of failure of one machine (OS/Disk/motherboard/network, etc.) is once every 10 years (120 months) on average.
+- When you have 120 servers in the DC, the mean time to failure (MTTF) of the next machine is 1 month.
+- When you have 12,000 servers in the DC, the MTTF is about once every 7.2 hours!
+
+**Group Membership Service (Membership Protocol**)
+![Group Membership Service](https://lh3.googleusercontent.com/0lSZMTpCdbfukb0W2qy3gVf93baG9mzQrBll_VjXTJ8Td_8yQZSSRL80-L-aHLLSSmZonepBXLwEkdCbXA0MDcIxxCq-Mbb-0mpkWD8QZNhIgEbjud-Y3IdecPryk27KJpTiXyq0gPyTu5ci2HGcsRaZgW2mKlRdqfDjjEvVyabxcsQriV563lVAyUgIBHf9qEQOkn1oxcbT4Q_XLrysHJ-QXbaK1R2RlpmMjt4VFoRSgvrGkqsLmonJMcC8Plt0ganAs_lFdGqls_dSHJysDpsCqOWJpquRUhCAJDixwnAfzC_-h0hFcKxd4vLVaI2Vw1br7Wd7IpIulpbX7HKlHGY8BTOGVCwUUPUw3wQMcAQ15fk0X5_wJqN3rCxwjADA93D1tWhS14SxsmtJjLQ2kJaQXm-WHtGybPfxuyJbL5XpLTkuhyJBrFGJx1heuUmnTVuEwUEid_s5FI2_AzsT_ryvWYl-Xx4WIEYw1e1XcPrEm1MgzXu5N6x1yOdej6eT6bH1-caw6swkIJQeev6adPOYsBbjSpenN_FIykb6u3YdTEuiiHR1jDjT1HmJlenHVE8fGRkN1Qi1oJV6eI_snPiNMIeu1pnusz7LDVkO89W0EuSUDqZDYN4lrZqzmxY78LzRfs0UsJBd0uNwXRHsbeJpMP8hSr8OiVbvO8cbPQ=w990-h328-no)
+- In each application process *pi*, there is a membership list that maintains a list of most, or all of non-faulty processes.
+- The membership list is a *Almost-Complete list(weakly consistent)*
+- Two sum-protocols
+	- Failure detector: a mechanism that detects failures.
+	- Dissemination: disseminates information about these failures after detection to other processes in the system.
+
+**The flow of failure detection and dissemination**
+![Failure Detection and Dissemination](https://lh3.googleusercontent.com/yI2nCBtceXUVH4jDI2ZojE4T4O4GBT2mNztSehJsaG252JhtlSC8VF7WPA3gn5dKGJh155coxkHXX6i7pr7JkVC1ehMLs0fJFxGI2QN7_IhwBH366sSNWgopjOc7NSJD6rLwnhdY13bn8mtzyDkNiqPHqlEvbc0dk5rYzECxZl0xf2PvxVIqrtoAWhZzPDMwMT11mgCMWMR7j3O7ltxMuhGxfPe4t_0SoUZTE3DexPbogQjIaaEP95Fy7fuWU5UBaf_lCCzdDRSz5gNAIszcmlYETvllFZgSqQrCH5-06ZUkTEMrN-AIx-TO2G_7wslInPNNQmZPaqONMICDJMTWbDF9gn3WlINMR7wIpvclg-GYA2W8ZQ9JHy9pucm_J2mk7qco7GaXwbmq8t_5KdS42eGfUA92EwuIVZrEqcMmHsGmxAQ1u9R22YAi4U2SivrMLDWZD_JjNTSo2WLtV_f08xOKtI5nEEU6TQEJzoybpjmbBQivFSd3Fy4K38Dggf-r-WGgym8jHI8ek12VhqK2nNDTSDmiQb8qITIfPLa_e5zutFKlip-lkuX-hWmohDU5ZqpTtA0FJCbHg1GWvwFrtOF0RK9iF6RAV3J4hFSWEPZsyDmnkSi6SnQOQYHyjf601EWPJDJ7K2IPg6XSOODs7NTKkqlcpBxLaGy4wCYe6Q=w990-h566-no)
+
+
+### Failure Detectors
+**Distributed Failure Detectors: Desirable Properties**
+- Completeness: each failure is detected
+- Accuracy: there is no mistaken detection
+- Speed: Time to first detection of a failure
+- Scale:
+	- Equal Load on each member
+	- Network Message Load
+
+`Completeness` and `Accuracy` are impossible together in lossy networks [Chandra and Toueg], if possible, then can solve consensus!
+
+In real world, `Completeness` is always guaranteed, and `Accurary` is partial/probabilistic guaranteed(almost 100%, but not exactly). Because when you have a failure, you definitely want to be able to detect it, recover from it, and make your data consistent again. You don’t want to miss any failures. However, if you mistakenly detect a failure, it’s fine for you to ask that poor and victim process to leave the system and rejoin again, perhaps at a different identifier. The overhead of doing that is less than if you do the reverse.
+
+Here are three failure detection protocols.
+#### Centralized Heartbeating
+![Centralized Heartbeating](https://lh3.googleusercontent.com/EnWz7E6gfc_ozDudBKkrKqduZGC2TohywwywXXts03hWhUsJNzzowXd6sLQpw33VeLIhI-JaaOCUt959lcIHMG8FMPiaiFLngZWghn73zWZNYBfkjjxFw7qN1Yjq83C2znsnHfBH0OnfzOVm2AaWZ1cop__B8quvavAjd4sba7oqafZ1oI9X1zlHMJ655wDE5tK7RvV81Dy7PjbeFNjxW7JRRCOvbAnm8JIl06faSQJxq7-jBg_hUkyyOI4VS4CeiGMr6g-ICkX6UBKh7GIDaa5hAdah9x_b8F3wVBLRoX3VOv0HSHC-n-vStKENbNwH7XanKeLPaOVZ-sozSxICB4UQIi9Pa0KGDJhM98M2xkhKwM_YGgRRJiuJ5i1nVuNs7dULF_rvx0HVQ74Fd9xpHhsDj23s6P7b6xEh3pv8Z9lFuH5kabGt-cSD_gYgi5q254CgzR0NZ6sNqOoxlhzdEgLhUzpAaPVdN5LWPBr3vsQMuyxT2lgsbJ4uZGg-nTH3BVS9b0pS5QfUJXfIWgSzikM4sDKzDoQmIns3f8s1Ojhk0sfYqD7BGxAalz8w3ChqrI2bkAlFA10on_piugYsLC--JgpgKGzqfVS4jd7B1nFVJ9mb-WbcUfJMb9i7-LHrAHJuv7NcSWjvxrhLf3ipoMLVpTAD34Ck7mZf181Qbw=w1249-h522-no)
+
+Cons:
+- When *pj* fails, there is no guarantee about who detects its failure
+- Overloaded, hotspot issue.
+
+#### Ring Heartbeating
+![Ring Heartbeating](https://lh3.googleusercontent.com/3Tqbd9Ph6sWH0mIl1CsWUm7xze3dP4EszbEJ8oZDwd9nV-QzFOD3hdPV9cUk9VA-zpQmhiHl2Cye84rg8YogXdwC4SOoHo-5IlMAxYWrSudRcfTqefhmC9PxYGvJ1MMdyZZf2YI7LdOm5mje9OhbjGhtJQHFu6kvD_p4ZVaLrwbjhjaoL3_Be2MjMXevSyRwoNd7OiIL0yzyeDUuLzrRwqjdJYXuaZhvbP3_RoL6I47APMc8i5_A0I4GwoR7fJgstSRUyKlE7ppyKTB2KumeLA79c_IeU5ra7CR9UdQ2nMDw10pmINTyfnWe48c98Lj9uCDpiAKp1Z8GlZBuN0R4Kk9EacwRnwQEVSfJBJ4JTXt-XmGqK3iAbMWaHPSV7bIxyNe31SpcU0Keu_hfMuDB9tXUA6Ai3hVALsFYMFO4AaYmnmLnep_Pg_xFTmo4nCuxK3xoYBTu645eKN15dym0Q7B4tpx4Pb-NH3AhcwKEDLMu7u5pEdxS91XLYJkdHRTpvree1Jy24ieopHqovPW32Fv1yOs3m4k-RDahljnuaq3vRRY3Kz--KEm0UomCtmxtcGVyGjAT7YKzq_QD7hTwg-fY7OQ5inZzykzhXWce5EEdTEywGQ950bPzSvfDrJWG9vZjjdbhe8TK-vxN4EkRaClA8IeDS7eyO9H9OHmogw=w1249-h517-no)
+
+Pros:
+- Avoid a hot spot, better than the centralized approach;
+Cons:
+- Might still have some failures undetected when you have multiple failures, e.g., both pi’s neighbors fail
+- Repairing the ring is also another overhead.
+
+
+#### All-to-All Heartbeating
+![All-to-All Heartbeating](https://lh3.googleusercontent.com/KfoZUNOg4xYnr1fwebulo6X80KmEf1aobujAP_VP0pJBTWbFHuMyuXpNjsVun9-reIbeJNPSNfFCW5AuqKR7EpI-tvdt7lFmRLWWlFqBlHVKKwhtGd2Mno-yMpQ6wEUhFNb9wWgvihMS1g4Vv6uTx03q59wZYe0vyUv2s6gSG95mjBIl6YB-FfPGbuMDFmhOHPLnjMUSQvYzizHYzeZPrdIpkGNP9SDWpqBx8C409qwEnxj3oBUJQqmMp56B83qd11kNl5KVLkw1u4lCl6r_Z6cCGjs1LjRLYG6Qh3f-x7y6t-9NFiX4AhduPtSN2aBOsSw_YKJXxx5OdAxpJusYMYmkvzJK37UmTSgxzBCJ83JX5LQuewhmKZXFeFNwBZM5wf_q-tEU7ah9wKVgOsxVSRF2izskO3pBn5SepggfwSefboVu3uYi4wCdGUW8Fu38EMpiSSrdb6RJgG8zcFvyBqx2WHDD1zqihDHfMPL4_g7PAFVwVTZ5bCZhRTEXxGuTpsZ5dhlQqdqzueqBvh58aj-iXUtQUamWUnbZVQNB6TsdW4HWSiA2WIYLcoINCI34FNSdYdKx7kWYim4aObiChUr3nFWpaYkczpJd3G-3jPqNKbq6UwLopjnVT3lWf0GDXseHZljyp6ptEkI2U7cNqiwm_d-8IaTbxILV7_yBlQ=w1249-h578-no)
+Each process pi sends out heartbeat to all the other processes in the system.
+Pros:
+- Equal load per member, well distributed across all. (The load looks high, but tactually be not so bad)
+- The protocol is complete, if pi fails, as long as there is at least one other non-faulty process in the group it will detect pi as having failed.
+
+
+### Gossip-Style Membership
+
+![Gossip-style Heartbeating 1](https://lh3.googleusercontent.com/-I-ViG1FQQVya5UK1Wm8Dd5M6zAF1-OZb1tBpY-0zOc5XcpHpwri_11qQ6xWXz8DS02haSQEobVSjXxpNY9tC0KXgdisn4-N_fdJL6HEO9kQK8Q_Ykf_f2UgXUjgz-IUhQ-Z0foqxJo1Xd0YzxIqy5is0VUhttbf76nquNVyRGElmORxu4nZeObEPyE1sJgb5i-88OQss0qOfSPDBxnGDcjOU6sg8GIu_XlFZ9ycw-JnEs96disdl8PKzgDp7pHo93o_yeamQ08ih8GGl1vsIyjUhgBoqO5x90qXBbQEgTbKHmPhbdIB-P3SZyZ59szOG0CaJvh1K5prQz0yxKrfyJvfg2c0a_y89Y7VqKlFJ0W5PlOmA3vj1exObJwQj9-KuHv6M2WhuE0EVbPxw0QK2EqSRoELKmKCiTlPwOk4rXDkkVZqmvhIAp8g6KVNus8HbcfNUZt-0Q28Cjl43AkqipDuh8SqIFEByv6cjqEGzCdFyd9RXPJJPS0Sqns5MpmAjMc-TMGlsT9kvqY09GEBVmIWcLNBruR5u2RRWodDrXhIYFa1lN4WbJpp9dGMRpAzCvu1OuUyNsXHYzctJ2TM5hFDzIW4ubvt4FKd4CwkrbCu9-1g0oL14WOvY261qtymXBY9dr5xcvw6GXGgK0Dg9CViGR-3MAgWdInZrsoTfQ=w1105-h466-no)
+
+![Gossip-style Heartbeating 2](https://lh3.googleusercontent.com/3epbIenhHzsTU_UBrTeQuTDTckh3Aq_N8dQTQxGFlq08K5n0a6cH4MhfeI0DEo5Vu9BgcdafEUYNwmP5gW6S-vFuL3A6In7yJFPgZWpfNmwkVtbi8OShgp7gFZ8PsUY3zjqkccm_fzMP6h7AP96La4mTbaTxx54sHSQgD1M2aKtxKt3m0SU89aZFake6jNGe0wdMhEBjxqH1ZF5rxqhG4-f6Jq66CmuMuQLxk3ufUWSNohctvooXfUd1JXfwk6bXb49xaqX91sX-QH36oeZQMTE14VttxWihbfQAbW_YCuikSFR0fsckdCcmtTwF_K4q9kEFKj5iaRuqWxV6RVerQJKK2gvt7iQ6XquB7aE6JowhlaIBvt2zatzQeQKPKsUog93qx6BZ3sLLBqj6gqH6TxqvTok2tZh0ff7PM72FOuIBqR61NNuCj4K0RUriWHz43SHe5JMQznebAU3tMec2SpnmQgNyMnY3Y5GWcBO0WnWkpXO62g9ajnyzlcxuCQ8z5ATOdE0GO7yT23vODTbmny2QH0pBrXzhHUx4gcOghjF0elqCMN9-N_-peTVc3pyUXzv-Av1ZNN8He2S8iH5natrZw8oh_7xrU1LeU7eJGJmOHzZv3LuVwJNyRtxQQybBhRdSC_T3y3SE0xAgWnb6g4L5fY8hdpQ5bh4n1gFHkw=w1105-h463-no)
+
+Gossip-style Failure Detection
+- If the heartbeat has not increased for more than T(fail) seconds, the member is considered failed.
+- And after T(cleanup) seconds, it will delete the member from the list.
+- Why two different timeouts?
+	- If you delete the member right away where an entry might never go away.
+	- For instance, if process 2 has an entry just failed, and deletes it. Then process 1 may have the same entry not failed yet, and sends it to process 2, the process 2 may consider it as a new entry and add it back with the new local time. With the ping pong behavior of gossip, this entry may never go away from the system.
+
+### Which is the best failure detector?
+Optimal is derived from the main properties:
+- Completeness: Guarantee always
+- Accuracy: Probability PM(T)
+- Speed: T time units
+	- Time to first detection of a failure
+- Scale:
+	- Equal Load on each member
+	- Network Message Load
+
+#### All-to-all Heartbeating Load Analysis
+![All—to-All Heartbeating Load Analysis](https://lh3.googleusercontent.com/O-l6oxNOi0qQM_vMdfRIIBc43dX-8h1yR8J4lijgl256f3jxLasA-2343VzE8kb9FX9FhVaAC8GGL3qQ3HByo15_8n27mXzYH7ciKhsloVS9o3oKld5aOHJA3E6vHe9-jD4o7a8inaKzbBIWGkF1iza-YZC-MluM1Mg1RUhd85ML2P1m0JOFooSl4qd9U9brBrqQmSrhXYhDbw3otRUbMphY7MnCdVJQh_qdJPNu43oAZQuTRW1zkhROlufqPa4ZpFZsBcJDGfMCvv7uKHDNh8YRXdbGYgAZirUGKdRGshrdR_gvjx6PsEn_KaxhdnPXzOIuVgyA0_cW5BGJW-hMky5-wLLwKZsZvnKXtmmEX27fsCEvmxLrDkAFSFEsZPIaJ-oeeZD3tLuYZoNfIRb0q8irc8d_waqEk6YYVvtB-YSCAIoqgsxTeQ6c873PXU3Yp2dgA6mO2a_vqOEB-ZSPu0Mct78Y00Mn-UBs5Q0VaopDmu1Vwqyy6ZZmyFICTVQGMzhcoenrNNM-uyOLFv2wfSHIprWN8GL6N5SFW8RhBTDWcmkrrFOGPosPKGxcdSmdsF1mdkJalqPVhBsSJD7vy1g0hp-IkvLG6kXEJCxO12BsbbfkZ4KXLgCVtppmvA7GVwOTeNBb2Z0DX-D-I-lqaKP_fwyvgl78943v2DcFUQ=w828-h347-no)
+
+#### Gossip Heartbeating Load Analysis
+![Gossip Heartibeating Load Analysis](https://lh3.googleusercontent.com/7voCt5CxStRmleomYLpCH7Droe4bi-imoFLTXDzsyd528Q0LubHAZF_kciHF6PPCIHo4Tu66G8pT7VGNVqJhvgwtPYfNy5Jd5JfZn9InszpkOWnQLt7Tiwc7ntm3-8C8L58SV47L4zFLfyvNZeiNGU_1ZteWTJbt9IwfTtwsdnuc3qfhuAjqhmkdJXqEV7Xh7pqA6BRofFkTya7bgVoTzdnOwOGR5wRXkZ7EAeuPL-FrHT0ZkxY2pM2KekZuOkPu7JspDDm9LiFCUMwoQ5GoQbCRrhUvcShxlqKkQm4pw2ATwBJYvfGLJPnPoCvX8pMKqWimdQpsDrHtL-PHmSb5IS4FLN82nQYAhQ0799_7q-KbJKrW2U1JI7NIMtQR1JJrt9x7NLwQcSFosioznCj_niI1IAiMNTR35FM2VBj9w2pdHa_oGMA4ajpLVUulluy5RNDoFTQ4Hh-UzXFyRjVX_jK1Z8jWkHVYDtQ38x8jwDsft9xO3x1QCVCjw-Frkl6KflBIYYrHDL31XyDrCcPMgnlei3Y3UEtQdZlsOi15b80MsQ4U5M0li7PLp9kwvkQlwCJ3zVbObGXVUsfhmeK988xd-l9HHeSiU3fuDQ07UoNpBBZy56YQbFIOWOVy9att60UguJ2kW7_CpKQvxvSsvYp9mzuO0fH01faTm7L6tA=w828-h347-no)
+
+**Conclusion**: Gossip-based heartbeating protocol has a higher load than the all-to-all heartbeating, it’s because gossip is trying to get a slightly better accuracy by using more messages.
+
+#### What’s the best/optimal we can do?
+**Worst Case Load**
+![Worst Case Load](https://lh3.googleusercontent.com/rhAw6FGaWhUHR1bYYNA1A2IBkbZFCZdLAQb8cvrl9JtVZLyOUkrcS3JgiKuZOkSiWqw4l9T-bOc9f7I39xQZH1V5QzOwYjbTnt1m74yJeheqtZGbpELByIqEtlVgSroRnrsgtqC8pPOP2yHnKn32u8NN6vCHqK-HCeQqCogyWurv6li4K7KI9n_C-ICKpvjJMa3nVBi6K1vKnNsTj8jeSmT6FfZj2MBWSW76nIw9nhp97pgyDC8THe6wngbvn_yjhhOZb7d3FmKtJ2t7apG7Ib7j1bMFoyTKFJcBBp2sqKOIXEZqK_kc69d6Hpu_byZs9vhHT4wgL-VqEMhMn_UtEKKOtChJ580Sjaos8Ziv3lwIGjplS-vm-dchTOMHSRw_kSxMxyWvcSxckbc_WTepyN7HU-23xPeX3mU3MAtECNHeOkH3Ox31aCP87VFcpj77SFqL8ymx6SX-RvAZl_yOKKFpzcv_IzD2gziItCzWCP9cV_nH_WjlwoQQXS0U3wuhzluK50xqwzsOpvQy9VjZXpsJOtvm8qk9r65EYln3CkTl-QsV1wgnlgWnKtsSG2JGFL5I6NKIj7ODQnpCYF2jl2BWOd5z7rLVstZkryKYswtE_bMcI5ad_2OO9-hB1lFM5BjKG2GrGUZq5XjaeCIGEe3qCDap5j5Y604lzuJR-w=w828-h355-no)
+
+**Optimal Case Load**
+![Optimal Case Load](https://lh3.googleusercontent.com/U4Onb3oayMfPRSjA2Os49lp9gQkW9b45PmC9jzUzwr6upIJHvRCj1ySLEd7XGQOHU5Xa-vmJizsVBq0YnyDhTUc1zu6jMryWXEFkM6On7HAMJO_eODifxPaJadgiv7yghk56I9ip50PEau5IMJiBSkpdqOKTUFpX_IsBQ7A2IzvUpJKZOoiGMLOHVTr3ceMvgWwAiF9GD3xxC1vTnRp_vvZoXvCUgfd-69DY2Rd_a6hqJr5CkBm8PD78StVpJhf9yBxuR4fVgdSwAJZNvGoJyvDJNgvYB3GjtCXvnZeSd8Pji_vNJE7cSr5lCm6UdQsQzdThV3EX1oBN7EfKXZjIo6Y7AhrwbCmFUtiFkVfuqEj12vXhYRNDJL5Va3e3O-scxfC65OgOTPYQ5qL7RCtzfb0xDvh-Xvlw7eiLRC0AtjpSfNO7F_grtZbAKMljteDsz28QFoExJgCfkh8Otfuqa2VJkvPGDAqEGaKOduFdOx95oKs7k6qQnb7mPp1NbAFVCpyiopCMOr9wRhu2wuRBGQcJptgrql__fb2be1PWnYe12sOKTm-FVQCvHCsLx3w6cZ746uztJWQuyq4-JreVcBpoIV8QxjJHcf3f2mAJCmIStIPZf3Q8N8eUezw9jDdNC9DAlcTXgutxOyGc-H8APsSgQ9dXwWRmYqYh8cxAbQ=w828-h543-no)
+
+
+### Another Probabilistic Failure Detector
+#### SWIM Failure Detector Protocol
+![SWIM Failure Detector Protocol](https://lh3.googleusercontent.com/39oV7t3ZOD7xAumWYGetDu7SLu93znYs7Bzk4MLKXjoFhMFbIh1G8SnLnaRR0v9YdzKiYcXLNCCFtvzvMOKiVb7SS5uud4s5daHSErLCvSvJz354MK5JGG_mlyeMsTdt4ShVIdTzhqm5TUFnOGiL7RItVMiORZ4sZsq-wIJ4upHT7awNxUXhXqZfhdYwksYakTok9rRl0K7qZY1wna2PbnxBI0_JgIHFG8LJeR7070gkLYrX71ueswXl1g_H7OQkfUq7AJrOdj1hJbh8jt8e3phNwUlGCEsEjJi9SC3pZRedcS8lWEUWCbZo8gHqXXALBY9hXUD7tOsPjYR6WO8FW6NcyZOIxPczBb4Y__lkuPujiCxHymoGCTmeIXj2YqsyQf_I6BtXQu-2LHVzHg8n-deCdQ2bmJUJHIzTclYYrPBboJ1WrkqvB6gIJS8-L_WvRPdw9LwUmKITnnjs71BNNM8Srlb6xGUhg97FqxJjbmQsVGFy09vOlokCZvPXbTyRVvHHZTWD_mEyCq1pyM2w8TB7ei0p8tZp13CRfE9360uiTj6wPT_wp2HONXV9Txlzs3aryGlJB7YkeXSyHBKMgdZ-enOH6ZC00OJ06fsEheWnAW1syuWNUyoLRxq3iMV0VLA6Pd4rvcC9R9yIXi9_yWKjTvV2afzLLZALfOGKCw=w761-h318-no)
+
+#### SWIM Versus Heartbeating
+![SWIM vs Heartbeating](https://lh3.googleusercontent.com/Bepw0l52MMlCi1Zw5dwuFeyPjVwI7jDTeFYUlvgAw8UJBF6BDhx0y7CUCrf8OvJOvQAaF4vvGYyochL-KF8jCtkPljv9YAQ6hBWUyW4Zaa_7dN2sQR1k9K-j59e1G-7-zlTqKHN1dOKnEOwmks_mrqdwmy4Xvf0HW3VZ9SzdhhjdnAdlgD0Nwt9OSaf6PjprzQl4iDL4L9BZkulWX66W2YwMtCmBYlket9zF0kHhnzKFtchDWzF37afKQMmPeKvKJtzBlr47VnOkalTKUO3n6YxkUumaVkrVhzFssFmFub6Sd8FukZ9_g8DpwL7Vfh6rUgz08Ex3eY1TqALU1YmYatQoFKEzCM22cIa6CCHfeLLN5db_-SSspLWJsBcd7au_OR-dTlM0eJxsoDEhYX9-WDWBgiZjclIpyefZXn0aE7PBOMMnHPGSinQfRMyrgUpcTmIG1A27DJPhNuUmS7cxFO2l0q_rpv9lNwY9lsR9aw9kKBAJJaCMwigONm5ID5FN2f15N9sSp7xsWpnqU7j0EJoxrtzBCWP9BDS24-e-Lqo9dr-11nYM04jeg-SV2UpPX3sLvkox-7ZgKMwNLXYhGEUMkVvrhidMz1B2zQjHrNnLePxtqdIlWehR01VaMKnnsrTfJoeoPjXl2PHj8V7JwuWyGoQNwJA0CkC7IVj54Q=w891-h377-no)
+
+#### SWIM Failure Detector
+![SWIM Failure Detector](https://lh3.googleusercontent.com/N4gLqzn3s3qV1FwRC4vV3jpR7vtGzwrHPIVhbyRMBER_yaC2To8Dgfzs9TwcR8lqwuifNgrnJDIpD5O7beNNIKIwzrlI3x11L2V2tw8pwcmJy_fB2BgmRy-igoDQ4OjHmJIaXwq_AQZ_TUobkNuJUSrQ7nDmV-tyFvi9UtN9coN8MNLns0flOXOa9wix_Rx3BDt7mLRx8mB50rkBMCt6jBcdDCEIF0fr_fsM8JyG0an509gEHlHlOI5LOTGlT2DDuKbd3FLJajuGDco8B0ZDPHTp5uSRjCMln-n-e9q4FT86n_5J9_kBTvhW6CjeEiEhmKLWR_oxDXauMrGJpWltkTZRJ50ov5GRKyGP6Ok_yC9U30OizjaNAZdsp7qYBM9xu6-iAnITHkMtQlEkKlbbcGS9-v6x86NQdwdoirWBQsKtaY70Jr5qZNxKWoKbAB0bRkGkDC1vePMoKl9kWcWmKiBvc8sBXVC16eyDj_6ezFg2qgw32VG2ekP9M4teiK_fojha_UfedfXGkevtJynAEoidYy6vmucK4DTzHI5chvz4cc6YA_jT23mJjPbWX5DqEfkFLXfZ6JfqNu8ers2MuwPqEHv7vwesbJFQwA7U8SpNSsNt94oCKMKvta6sQ-I5gNNyjn1TdURS-MZaBiXJvUOOrJSLiQ4Ll1NjfIwoNA=w891-h594-no)
+
+**Accuracy, Load**
+- PM(T) is exponential in -K. Also depends on pml (and pf)
+- See paper
+
+L/L* < 28, E[L]/L* for up to 15% loss rates
+
+**Detection Time**
+- Prob. of being pinged in T’ = 1 - (1 - 1/N)^(N - 1) = 1 - e^(-1)
+- E[T] = T’ e / (e - 1)
+- Completeness: Any alive member detects failure
+	- Eventually, every other non-faulty process that has this failed process in this list, will pick it as a pinged target.
+	- By using a trick, within worst case O(N) protocol periods
+
+**Time-Bounded Completeness**
+- Key: select each membership element once as a ping target in a traversal
+	- Round-robin pinging
+	- Random permutation of list after each traversal
+- Each failure is detected in worst case 2N-1 (local) protocol periods
+- Preserves FD properties
+
+### Dissemination and suspicion
+![Dissemination](https://lh3.googleusercontent.com/dogZe4DEAHoMWXOaQ7r7iOAh3BtnyZCd4VFI2JBZVDMerUNatygWo1ua7BIWOQrL0GrzCMDKGbNDswBY6-pyT2FcwwAXHSnJ-Ccsq-ZsiSBDF9OykA0EXU1QA5yiwOHX1abCfGtf5T4-MNgkBjPuukd_5A6mo2cO23lFvTygdWw5vVGoz9SRXNqiMzwi26uYzgeSMBROxggLPkcvDdrZSpjkFm0XeWvKDZgvLd3vRtwf5p30UM-_PUfwo_P0UlS1pNF3THzqWiIIJYyOg_4eo6-T76yrCMYUz75Vn6nD1yo04MNTEkX5nGD1pIjRyrp8rSePS5WxrEuGBLaY9LNHaMNES69VvkjNRYSx8jaT_3SljH_KzSJ6XFYRS6beP6sKz_QSyq0QlfZ7KoWuWj-46_2WKYROTTgbNDf79jZKfGNXzIKCUcB6G8WcN9dQqazdsE8F1pH8TBd0D9GMoOAY-WfnmtJB6cOiwCCLUQs8IYLDrWMnFj4AubJJkntUZXYCoYb8bquQBFXiggphKzAv0H8CSbCVgXl8tlo6T3befhuIhvrQkyui0VE64OM4cCBfx48NKjymRrrwWcqWo-AhPkAJwpBwaj5rWE7nxGShkUMfR_yoTpn5Tkq-swPOc3A5bg6de4m-ceKwx0jymf7yiWxeTOYHcxEH3k1UPN9a3Q=w868-h518-no)
+
+#### Dissemination Options
+- Multicast (Hardware / IP)
+	- Unreliable
+	- Multiple simultaneous multicasts
+
+- Point-to-point (TCP / UDP)
+	- Expensive
+
+- Zero extra messages: Piggyback on Failure Detector messages
+	- Infection-style Dissemination
+
+**SWIM Failure Detector Protocol**
+
+#### Infection-Style Dissemination
+- Epidemic style dissemination
+	- After λlog(N) protocol periods, N^(-(2λ - 2)) processes would not have heard about an update
+- Maintain a buffer of recently joined/evicted processes
+	- Piggyback from this buffer
+	- Prefer recent updates
+- Buffer elements are garbage collected after a while
+	- After λlog(N) protocol periods, this defines weak consistency
+
+#### Suspicion Mechanism
+- False detections, due to:
+	- Perturbed processes
+	- Packet losses, e.g., from congestion
+
+- Indirect pinging may not solve the problem
+	- e.g., correlated message losses near pinged host
+
+- Key: **suspect** a process before **declaring** it as failed in the group
+
+![Suspicion Mechasnism](https://lh3.googleusercontent.com/m_pzGtPdmyCiYLM6B_Xj_hxgCgZ2MxBHsJcOW5WHuFc5xNCplSRZUvxbPfjS2Wcw5t_mvOhyxsvzTUK4xDR7SPuPYozaQ8JJnR65UUc8LClsIyFD1fHElwaOVJO_TPkdKpbibhM4C0ACwwXVtTzeDvTYl4RVacnwAZLzmzyRQtLsalPpbvMwPRze5ki_v1o1wQ5n5YcG7MguXFzYO_ylL225iCHmVw-9I48ewd1e7GGAr7ucoS_S04Vz3tz7eyaF8lyqmcurqpU7gj4edPutsbknIteyu0eqLttWQBu2m_5B4zMrCTqXQ_H2DADuIrxj92r5Ho01WMDtLjP150LtFCL8qZ5iJ3TGUl01BYSANnAsjqaH1XNgSqIsStg0rQLPq_TFwxHqQqCq3hLF1mnqPBPZFwE5v0jwd0SeIWHrM-ImlOdvMDhaNuJcMGn94aFp-v-vvv5fZTu0qniZZ0rvJ8YGvNlRoE5JZAJlghdWbZxBnx0bWnUq3t2awAqFnF5EI-pvEZTi9Tk-osRFafzVpTHYY7Ar5EvIMaceVjjfpzj0_nfNmDLPwL9TepVExfDlpIkmCYySfsXni7yS3DTumvKBQFO6bbNqV4iQHiW0tWs4e74o7DDw1sjkU-GnM6QLA1FpYRECvSWH0RF_M78C9235-dUWBLYtlF6K5oziiA=w868-h362-no)
+
+- Distinguish multiple suspicions of a process
+	- Pre-process incarnation number
+	- Inc # for pi can be incremented only by pi
+		- Typically Pi does this when it receives a suspect Pi message.
+	- Somewhat similar to DSDV (a routing protocol that is used in ad hoc networks)
+- Higher inc# notifications over-ride lower inc#’s
+- Within an inc#: (Suspect inc #) > (Alive, int #)
+- (Failed, inc #) overrides everything else
+
+
+#### Wrap Up
+- Failures the norm, not the exception in datacenter
+- Every distributed system uses a failure detector
+- Many distributed systems use a member ship service
+- Ring failure detection underlies
+	- IBM SP2 and many other similar clusters/machines
+- Gossip-style failure detection underlies
+	- Amazon EC2/S2 (rumored!)
 
 ## Grids
-(To be completed)
+### Grid Applications
+#### Example: Rapid Atmospheric Modeling System, ColoState U
+- Hurricane Georges, 17 days in Sept 1998
+	- “RAMS modeled the mesoscale convective complex that dropped so much rain, in good agreement with recorded data”
+	- Used 5 km spacing instead of the usual 10 km
+	- Ran on 256+ processors
+- Computation-intensive computing (or HPC = High Performance Computing)
+- `Can one run such a program without access to a supercomputer?`
+
+#### Distributed Computing Resources
+![Distributed Computing Resources](https://lh3.googleusercontent.com/wJkApIlpQHJxeKok6fK9Xl81M0QegAwkNUJ2sS1bw6Xxhh61ZoJbhOFqz273BvHSWR8SrA2wsa1w8uN8x3gPLbwzgEBto0ZKeWmz7u5vTAHxEqB6P3XTxGRoS5h5qUPDQDjXSW2eUsyaqUi5zyBmKYnwtwcmCPH4Jzw_iIzFh2HIfwwECkGuf5hHVcJmuCHVq01leDK4gyzBY-czPGgB6KrbQegDCUrrXZe1kFejRsD5nmHQxph54oOMUVwUarKHJwJ6IaaCskLtUJm2XS-G-RgMTG58Ujy2c9s6q3uBoAlfuOuhff-4IsDIAlFiiivEeWRXW9jwRW5XVyv_5_jqZvoUsq1p7L9wVqsm1Tt9fiEqNvduRZAjdXiD30omU30OR-ocO3eXVHs17n1SnfUcRb9nHJ2SgwcWlNqSCDhftzCMzZaUEflkm0PhNLwMjpLsvZs6RnEavR6l6A4Qq3CcS-VRtXyI7yEmvtc03ZzHg_aHVPAW3Ngk7j6f2kOhp97Tsicu5J7X-UwFRvBIiZwQDrUbbvg8OkBaoYSCPQCOFcc_4S2VS_VwDLrz-OEYpCpDZuLW7tX9d408E49zkE7bxFmII6BX_R2dhc5vedvdBs736Wgq99x7HHwQEk0kFLf47OzL1oN4H69dxl9Fyxq0fDHMw6g2Z0ZBt2v0Y45hRg=w868-h507-no)
+
+For example, at certain times of the day, the work stations/clusters at Madison, MIT and NCSA are free and available for running your application.
+
+#### An Application Coded by a Physicist/Biologist/Meteorologist
+
+![An Application Coded by a Physicist/Biologist/Meteorologist 1](https://lh3.googleusercontent.com/dh74d-bz_NYQwpp2T1GOQ1VpLk6wIkUVvF79tWzuXVt5hdOkaX3G2gxCSFlweNepdCV4cyrQanqdgYrsDynQvgrG7uhRQv3Ih6fbxgIcjwTIxY5EgEfeAC8nCMANtmoffV3nbamqnvjwoTWuhjDaTNiQV6uWTJUw6qeZCCnLaFPNEnaucwDJkuWV_fSx5kD4Fxq2OXkXk1-hlE8QbUY0hL_xQbkmzdcAOtgBkW0lv6F2F7EZ-B8ONVkOxOgeSkLlvQC-xaRIKZJzSwOF0kJS-cyEmuMlaRGR9WzZ5rvb-lhw-PsWH-m6DhwJlI2kukokLW8G_55qlatD5fcGck1mK1IcDsrbxkcqozweZurI3gHX6HKByQpJP5BmeU60kN5SlzEq-jMLAplgHI6M0KFj4KIXUJr7XcydZ1a8ur9wAYRbX2rjm7U03GNVUHmiU-yXlcEIzTnS5w0T8uUyQ6sQqjKvtj3ZtwSJddkLnRZvasIBQO4FDf1TFeq3DoDVjdk3jV97m1hgcC0W6goMUwMJ1-LGoKCedV6sFdA89pW1AE9ToQyNHNaCleYt100hWbvlBwkXCuvRc-D6zP5hQ8OtlTTcqQIkMdaf2kpsIvi_YMgf4Lm-KAnLppV5wI8bLwgj_KojAm9nJ8nqlRBJl1HlQhJTT5geMtC1aKR1uXHwIQ=w868-h511-no)
+
+![An Application Coded by a Physicist/Biologist/Meteorologist 2](https://lh3.googleusercontent.com/hd1V_S85bk2M_PTHJ8TZH3WKHDC33DjlJs6FiqqCyhfZne_iDB1UnKjRm4U9PQfOXy-P_KlVNN4uYU9QQaIOkCH0CMh_AstBLXm8m3Ku1XFy6EgyKip1lQ61oIeXzfGxoiSR4KlcEu7saiPpV0L7mbVp2rot3piDunQ4XVHLWHbEmNUxt_nMIz_ZL1mwhVUu4dTcd7nCsuxCbqw_lhznsPByxwSdb5b3n60L3D9FNWWrXPaClzk5hvdBHRM2nN1GurPEFvFCqdnpgaMC1jmS7AOmDBA76X_IIqA46qQOeAVCRZf3x-FB4WwP5Dw7c0JOa3ZhKxddTmHscI3Fj2VOSRbazxAa0G0bnG3HIWVT30Edd3F6cjYV7uExD8JL5IeD3zk7Soyf6-bXqh-GeYoGnYyDo5HPfZAgQ8EIf1DyKxppmbT25wQlUeBup1mzhIsWXoBlsrnL7Omrc04rBDM6pZtDOIV46axBTEQQ7LSwH8I9Dtd0NRafYVT2vevLgJ1fDOIbLBqr-qI1QNzYyilsxLTc_7PlDHGCeoMTuwIJAsolx2_nd1ufcfVYE9UUo1eFzkjM0xn9cSDJqQR2Z6X8ofTJex7uZ33Sf8KIfR324aUMpj4RDSJcWukPrexwh44FUXqCpD1z6XHtitzn5MC_kSA-9TWc0sqTYu_K7EXKJg=w868-h525-no)
+
+So how do we schedule the jobs?
+
+### Grid Infrastructure
+#### Scheduling Problem: 2-level Scheduling Infrastructure
+![2-level Scheduling Infrastructure](https://lh3.googleusercontent.com/hd1V_S85bk2M_PTHJ8TZH3WKHDC33DjlJs6FiqqCyhfZne_iDB1UnKjRm4U9PQfOXy-P_KlVNN4uYU9QQaIOkCH0CMh_AstBLXm8m3Ku1XFy6EgyKip1lQ61oIeXzfGxoiSR4KlcEu7saiPpV0L7mbVp2rot3piDunQ4XVHLWHbEmNUxt_nMIz_ZL1mwhVUu4dTcd7nCsuxCbqw_lhznsPByxwSdb5b3n60L3D9FNWWrXPaClzk5hvdBHRM2nN1GurPEFvFCqdnpgaMC1jmS7AOmDBA76X_IIqA46qQOeAVCRZf3x-FB4WwP5Dw7c0JOa3ZhKxddTmHscI3Fj2VOSRbazxAa0G0bnG3HIWVT30Edd3F6cjYV7uExD8JL5IeD3zk7Soyf6-bXqh-GeYoGnYyDo5HPfZAgQ8EIf1DyKxppmbT25wQlUeBup1mzhIsWXoBlsrnL7Omrc04rBDM6pZtDOIV46axBTEQQ7LSwH8I9Dtd0NRafYVT2vevLgJ1fDOIbLBqr-qI1QNzYyilsxLTc_7PlDHGCeoMTuwIJAsolx2_nd1ufcfVYE9UUo1eFzkjM0xn9cSDJqQR2Z6X8ofTJex7uZ33Sf8KIfR324aUMpj4RDSJcWukPrexwh44FUXqCpD1z6XHtitzn5MC_kSA-9TWc0sqTYu_K7EXKJg=w868-h525-no)
+
+#### Intra-Site Protocol
+![Intra-Site Protocol](https://lh3.googleusercontent.com/Xjjdwmlt_bwtGLd42uGRk_3XMgUwnNjQfqaac0MdE564asUIsqzMuncrnCF_teqeI1xwbqEhMyssSPIBbmknnb6BSIwrse2B04XEqlCOy35KVn9DUvub_k0zoH0slsvXsHDjutXe0w6Q3ar8HZmAV6EsWthtHTiP61O8A9YEhI3sWN3Jo-12zjPEx7M0VTIb3Omu2neAa9D0E2Vt6n1fPaZWXE2aJEtsgeVo_FwyOOUSMvJnPFoc6kVnPZpHzSiUQ4Dl1htmS2shHBv1KxIOvjl9Xr1rxD7nZM9K0bj_aU97nTQsPpw-gt5mnBlmGkgjbuTV08PpMJTUliroONq-Ktmk0fRAKRRLrT4V5yugoQgxJ0kTYtkI3bXLFDf7okslSPv5Zmhe_Y1Gk9PDW1jSPYqwKxylHOR0Xzs_JJQutVDNGawSGL8Jy5zam4963RfzsgB1GoO4r_3wPoGWLsGR9mrpIFz-kDeiZFP7mukB5jPLIyTwN2sc5_A96MvQDhbzFv4MwDzNnmB_eqRXoS65eJZELzgBhOGGFU-vMb34cPRfSmd3YLdyO0QWNKL7p2_i_-kxHygI_TLUWYRZRUYHQ9Fo-hjOphubjlsrzIosBNBAd3w7ALpAiGcjpM8QT-bPfD-isSzzvTMIJDaf-2DWkrp1tqCFun3Qsa1Bf02oPw=w868-h528-no)
+
+**Condor (Now HTCondor**)
+- High-throughput computing system from U. Wisconsin Madison
+- Belongs to a class of Cycle-scavenging systems
+
+**Such systems**
+- Run on a lot of workstations
+- When workstation is free, ask site’s central server (or Globus) for tasks
+- If user hits a keystroke or mouse click, stop task
+	- Either kill task or ask server to reschedule task
+- Can also run on dedicated machines
+
+#### Inter-Site Protocol
+![Inter-Site Protocol](https://lh3.googleusercontent.com/LXBWXvc2VBfFCN5J11ybV4Bd1yMt8qnw17t7fOwS4fA7nLFdP9sWws0jyvAtkPVv2bzjPenMnb4I3EpryDB3Q7lZheqIo_Uf7XPyAFQ9dycfpl4T-bqJB8KgLvTwM7rX5Br8fIVz5qnCVAPjGf0BXNKp9mm_Jfj-YS3FYIT9yj9Tv4QqmneuBErMFaa7EArFmeeb3Ie0gqUA8dqC78YgI3o55sLBiMrKGq9Aysj14KpFCkY6BIhadH0pOI8Jf3c8SDxpGwVurLTqM1OLX480QlkHbGe5KrXXt-ZqcS4B82bs0oOe5Iq21YJtgzu3ufmE4jMMgXA9zsMEPsRgn4PiWiwxY9wvrR9dV-fFxb4XrD9OnyJT02hJQcCVHKPnqMmDv5dDRN1e5xoARBksm50B-6wqQ4nUWom95OXAW3Yo8exa6er6bQLW8suPjdmaH1pAVtiNT2jcYtrcT6bB-iEiQTGMEi6EnLRMfDGCCVvnrfhmf_DUtMBNEKvco_qFnykNq1QLVh9RFjxoUYI3KqNelHBAfHPKI79-2QSIskURiE_t3DKJGNSJCcl94QtH2oHbQpYiFrGeqAwLNJW_hMYotj4HNaJQvS0EfVKEbmgjboE-ryEsvDEbV4HFdZBoLTNuaXHpZrHxVsodybEWLxmcG6YoKkn6k_Yq_3w588MCqQ=w868-h527-no)
+
+**Globus**
+- Globus Alliance involves universities, national US research labs, and some companies
+- Standardized several things, especially software tools
+- Separately but related: Open Grid Forum
+- Globus Alliance has developed the Globus Toolkit
+
+#### Security Issues
+- Important in Grids because they are federated, i.e., no single entity controls the entire infrastructure
+- `Singe sign-on`: collective job set should require once-only user authentication
+- `Mapping to local security mechanisms`: some sites use Kerberos, others using Unix
+- `Delegation`: credentials to access resources inherited by subcomputations, e.g., job 0 to job1
+- `Community authorization`: e.g., third-party authentication
+
+- These are also important in clouds, but less so because clouds are typically run under a central control
+- In clouds the focus is on failures, scale, on-demand nature
+
+#### Summary
+- Grid computing focuses on computation-intensive computing (HPC)
+- Though often federated, architecture and key concepts have a lot in common with that of clouds
+- Are Grids/HPC converging towards clouds?
+	- E.g., Compare OpenStack and Globus
