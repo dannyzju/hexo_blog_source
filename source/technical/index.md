@@ -9,6 +9,7 @@ comments: false
 Coursera上Cloud Computing Concepts课程的笔记整理，计划分为10个部分，持续更新中。
 - [Cloud Computing Concepts Notes 1: Orientation, Introduction to Clouds, MapReduce](http://dannzhang.run/2017/02/25/Cloud-Computing-Concepts-1/)
 - [Cloud Computing Concepts Notes 2: Gossip, Membership, and Grids](http://dannyzhang.run/2017/03/14/Cloud-Computing-Concepts-2/)
+- [Cloud Computing Concepts Notes 3: P2P Systems](http://dannyzhang.run/2017/03/20/Cloud-Computing-Concepts-3/)
 
 # Data Structure & Algorithm
 - [Data Structure & Algorithms Notes: Reservoir Sampling](http://dannyzhang.run/2016/10/09/reservoir-sampling/)
