@@ -6,6 +6,8 @@ categories: tech
 tags:
 - 学习笔记
 - tech
+- MapReduce
+- Cloud Computing Concepts
 ---
 
 Class notes 1 for Cloud Computing Concepts by Indranil Gupta @ Coursera

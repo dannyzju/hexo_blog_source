@@ -6,6 +6,10 @@ categories: tech
 tags:
 - 学习笔记
 - tech
+- Gossip
+- Membership
+- Grids
+- Cloud Computing Concepts
 ---
 
 Class notes 2 for Cloud Computing Concepts by Indranil Gupta @ Coursera

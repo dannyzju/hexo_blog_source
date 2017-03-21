@@ -1,7 +1,7 @@
 ---
 title: Learn Python Basics Learning Notes I
 date: 2016-06-27 23:07:30
-tags: 
+tags:
 - python
 - tech
 ---
@@ -10,7 +10,7 @@ tags:
 Python is a language with widespread adoption and lots of uses.
 
 ### Python Variable
-Example: 
+Example:
 ```python
     name = "Danny"
 ```
