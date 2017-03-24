@@ -14,7 +14,10 @@ timezone:
 avatar: /images/avatar.jpg
 
 # Duoshuo
-duoshuo_shortname: dannyzhg
+# duoshuo_shortname: dannyzhg
+
+# Disqus
+disqus_shortname: dannyzhang-run
 
 # baidu analytics
 baidu_analytics: cf34824826b242e2f2924ceffd8bb1fb
