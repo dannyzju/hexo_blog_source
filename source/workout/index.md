@@ -9,7 +9,7 @@ comments: false
 
 # 健身记录
 
-| Date        | Workout           | Time  | Level |
+| Date        | Workout           | Duration  | Level |
 |:-----------:|:-------------:|:-----:|:-----:|
 | 02/15/2017    | HIIT全身燃动 | 27 min | K3 |
 | 02/18/2017    | CrossFit  | 60 min | Hard |
@@ -18,3 +18,6 @@ comments: false
 | 03/16/2017    | HIIT核心刺激强化 | 20 min | K4 |
 | 03/20/2017    | HIIT全身燃动强化 | 20 min | K4 |
 | 03/23/2017    | HIIT力量爆发强化 | 21 min | K4 |
+| 03/24/2017    | HIIT下肢挑战强化 | 21 min | K4 |
+| 03/26/2017    | HIIT全身燃动强化 | 20 min | K4 |
+| 03/28/2017    | HIIT核心刺激强化 | 21 min | K4 |

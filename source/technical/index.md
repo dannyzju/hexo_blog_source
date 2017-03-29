@@ -10,6 +10,13 @@ Coursera上Cloud Computing Concepts课程的笔记整理，计划分为10个部�
 - [Cloud Computing Concepts Notes 1: Orientation, Introduction to Clouds, MapReduce](http://dannzhang.run/2017/02/25/Cloud-Computing-Concepts-1/)
 - [Cloud Computing Concepts Notes 2: Gossip, Membership, and Grids](http://dannyzhang.run/2017/03/14/Cloud-Computing-Concepts-2/)
 - [Cloud Computing Concepts Notes 3: P2P Systems](http://dannyzhang.run/2017/03/20/Cloud-Computing-Concepts-3/)
+- Cloud Computing Concepts Notes 4: Key-Value Stores, Time, and Ordering
+- Cloud Computing Concepts Nodes 5: Classical Distributed Algorithms
+- Cloud Computing Concepts Nodes 6: Classical Distributed Algorithms Continued
+- Cloud Computing Concepts Nodes 7: Concurrency and Replication Control
+- Cloud Computing Concepts Nodes 8: Emerging Paradigms
+- Cloud Computing Concepts Nodes 9: Classical Systems
+- Cloud Computing Concepts Nodes 10: Real-Life Behaviors
 
 # Data Structure & Algorithm
 - [Data Structure & Algorithms Notes: Reservoir Sampling](http://dannyzhang.run/2016/10/09/reservoir-sampling/)
@@ -23,6 +30,7 @@ Coursera上Cloud Computing Concepts课程的笔记整理，计划分为10个部�
 - [利用Hexo快速搭建GitHub博客](http://dannyzhang.run/2016/03/20/createGitHubBlogWithHexo/)
 
 # Generals
+- [人工智能(AI)简明工具箱](http://dannyzhang.run/2017/03/27/AIToolKits/)
 - [RxJava极简入门](http://dannyzhang.run/2016/08/30/RxJavaIntro/)
 - [Android中的Threads的实现](http://dannyzhang.run/2016/08/25/androidThreads/)
 - [Android 测试专题笔记](http://dannyzhang.run/2016/08/15/androidTestSummary/)
