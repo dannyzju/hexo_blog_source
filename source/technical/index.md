@@ -18,6 +18,12 @@ Coursera上Cloud Computing Concepts课程的笔记整理，计划分为10个部�
 - Cloud Computing Concepts Nodes 9: Classical Systems
 - Cloud Computing Concepts Nodes 10: Real-Life Behaviors
 
+# The Complete JavaScript Course
+- [The Complete JavaScript Course Notes 1: Basics](http://dannyzhang.run/2017/04/02/Complete-JavaScript-Course-Basics/)
+- [The Complete JavaScript Course Notes 2: How JavaScript Works Behind the Scenes?](http://dannyzhang.run/2017/04/03/How-JavaScript-works-Behind-the-Scenes/)
+- [The Complete JavaScript Course Notes 3: JavaScript in the Browser: DOM Manipulation and Events](http://dannyzhang.run/2017/04/05/JavaScript-in-the-Browser-DOM-Manipulation-and-Events/)
+- [The Complete JavaScript Course Notes 4: Advanced JavaScript: Objects and Functions](http://dannyzhang.run/2017/04/06/Advanced-JavaScript-Objects-and-Functions/)
+
 # Data Structure & Algorithm
 - [Data Structure & Algorithms Notes: Reservoir Sampling](http://dannyzhang.run/2016/10/09/reservoir-sampling/)
 - [Data Structure & Algorithms Notes: Union Find](http://dannyzhang.run/2016/07/30/Techmon-Go-Union-Find/)
