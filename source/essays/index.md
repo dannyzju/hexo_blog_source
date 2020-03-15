@@ -4,6 +4,12 @@ date: 2016-07-30 15:11:10
 comments: false
 ---
 过往文章整理：
+- [新的旅程](http://dannyzhang.run/2017/10/28/2017-weekly-9-new-journey/)
+- [生活基本法则](http://dannyzhang.run/2017/08/04/2017-weekly-8-basic-principles/)
+- [最美的风景](http://dannyzhang.run/2017/06/27/2017-weekly-7/)
+- [新墨西哥州之旅](http://dannyzhang.run/2017/05/22/2017-weekly-6-new-mexico/)
+- [初晴](http://dannyzhang.run/2017/04/26/2017-weekly-5/)
+- [双面](http://dannyzhang.run/2017/04/19/2017-weekly-4/)
 - [白日莫空过，青春不再来](http://dannyzhang.run/2017/04/11/2017-weekly-3/)
 - [Learn without limits](http://dannyzhang.run/2017/03/28/2017-weekly-2/)
 - [好久不见的周记君](http://dannyzhang.run/2017/03/20/2017-weekly-1/)

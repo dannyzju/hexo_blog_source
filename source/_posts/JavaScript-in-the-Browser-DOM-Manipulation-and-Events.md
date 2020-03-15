@@ -7,7 +7,7 @@ tags:
 - JavaScript
 ---
 
-## The DOM and DOM Manipulation
+## 1. The DOM and DOM Manipulation
 - DOM: Document Object Model;
 - Structured representation of an HTML document;
 - The DOM is used to connect webpages to scripts like JavaScript;
@@ -15,7 +15,7 @@ tags:
 
 ![DOM](https://lh3.googleusercontent.com/opF1GsIL8wI2VAPukMjRs_qVBbUa2SFB7IcszMYq4Y4Rhm31n4gtbs1dJZAwrziMJS4-wQn4OxbYBzN3_jLw8J7Fi4XG43rFJSnO6s1ODZG9r1vRMGqLybAWUzggx4lbGhzPJy_NZ6iwhv29W8Ko0mk-im0KsEg0ChQOH9Haxup8w-jkv2mRGqUQy01uUcWsEWU1SjMge3SqI3giiUh-0j9l2OVf8BDW6rKY6yvWyqeTdOYHnVma0D9MCuFcmJCInlpOAtaTXiiRkRJNuZAoVeOvSN0GsblKPvxS_lsoiJiA4WEnq-Y73Ud2OtGlC-_m0iE67Atr1i5Skm1x0kIVy-jpGxPFj0RKiVGlha2saK9izFfFK5-a0KSg_W0DxfjESVcSboe4xZO5JMeHdb6RnZIugIFRi2Q_UHxQtuqw5s3R7LXXRdQktEidCrIz3QnFGMm4D07Lx6fO6jKflunl30_do5_0aaOaitVKy_AV5EEc-luK8X5EAPyB8PzuWQaT_6rfdK7TbuRuob3JmrFzvBmxglZjxb6tY-LACSogxScpISC5MoYyUEP9HIzOkt-LprxJ0R19VN01FEyTrkpEU7TbX0D0qQwEDDGxb8tSnTBpdzUwzDfHUNMJijQjxlnfQ1HL8knMIyhz0ZPQoAmcrpARr1W9N9N5UkVMpv_kMQ=w1192-h1019-no)
 
-## DOM Access and Manipulation
+## 2. DOM Access and Manipulation
 To get a random number from 1 to 6:
 ```javaScript
 	var dice = Math.floor(Math.random() * 6) + 1;
@@ -33,7 +33,7 @@ Select an element using getElementById: (faster!)
 document.getElementById('score-0').textContent = '0';
 ```
 
-## Events and Event Handling
+## 3. Events and Event Handling
 - **Events**: Notifications that are sent to notify the code that something happened on the webpage;
 - Examples: clicking a button, resizing a window, scrolling down or pressing a key;
 - **Event listener**: A function that performs an action based on a certain event. It waits for a specific event to happen.
@@ -46,13 +46,13 @@ document.querySelector('.btn-roll').addEventListener('click', function() { //An 
 
 ```
 
-## DRY(Don’t Repeat Yourself) Principle
+## 4. DRY(Don’t Repeat Yourself) Principle
 For the same code used in different places, wrap it up with a function, like the init() and nextPlayer() in the project.
 
-## State Variables
+## 5. State Variables
 In this example, use `gamePlaying` as a state variable to stop the game after a win.
 
-## Complete JavaScript Code
+## 6. Complete JavaScript Code
 ```javaScript
 /*
 GAME RULES:
@@ -163,5 +163,5 @@ function init() {
 
 ```
 
-## Project Demo
+## 7. Project Demo
 [Demo](http://dannyzhang.run/projects/pigGame)

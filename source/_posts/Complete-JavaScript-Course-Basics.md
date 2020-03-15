@@ -7,7 +7,7 @@ tags:
 - JavaScript
 ---
 
-## What is JavaScript?
+## 1. What is JavaScript?
 JavaScript is a lightweight, cross-platform, object-oriented computer programming language
 - JavaScript is one of the three core technologies of web development
 - JavaScript is most commonly used as a part of webpages
@@ -18,10 +18,10 @@ JavaScript is a lightweight, cross-platform, object-oriented computer programmin
 	- Dynamic effects and interactivity;
 	- Modern web applications that we can interact with.
 
-## JavaScript Basics
-### Declare a variable:
-```
-var name = ‘John’;
+## 2. JavaScript Basics
+### 2.1. Declare a variable:
+```javaScript
+var name = 'John';
 console.log(name);
 
 var lastName = "Smith"; //Both single quotes and double quotes work, but need to keep consistent.
@@ -35,7 +35,7 @@ console.log(fullAge);
 
 ```
 
-### Primitive Javascript Data Types, Variable Mutation and Type coercion
+### 2.2. Primitive Javascript Data Types, Variable Mutation and Type coercion
 - **Number**: Floating point numbers, for decimals and integers
 - **String**: Sequence of characters, used for text.
 - **Boolean**: Logical data type that can only be true of false
@@ -60,13 +60,13 @@ var lastName = prompt('What is the last name?'); //Allow user to type in.
 alert('The last name is ' + lastName);
 ```
 
-### Operators
+### 2.3. Operators
 例子都很简单，在JavaScript中各种运算符的优先顺序可参考：
 - [Operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
-### If else statements
+### 2.4. If else statements
 
-### == vs ===
+### 2.5. == vs ===
 `==`: does type coercion
 `===`: does not do type coercion
 
@@ -81,10 +81,10 @@ alert('The last name is ' + lastName);
 
 ```
 
-### Boolean Logic and Switch Statements:
+### 2.6. Boolean Logic and Switch Statements:
 Too basic, and the same as Java
 
-### Functions
+### 2.7. Functions
 
 ```javaScript
 function calculateAge(yearOfBirth) { //Function with return value.
@@ -104,7 +104,7 @@ function yearsUntilRetirement(name, yearOfBirth) { //Function without return val
 yearsUntilRetirement('John', 1990);
 ```
 
-### Statements and Expressions
+### 2.8. Statements and Expressions
 ```javaScript
 //Function Statement
 function someFun(par) {
@@ -121,7 +121,7 @@ Difference:
 - Function expression produces a value and outcome
 - Statement just performs an action
 
-### Arrays
+### 2.9. Arrays
 
 ```javaScript
 var names = ['John', 'Jane', 'Mark'];
@@ -146,22 +146,22 @@ if (john.indexOf('teacher') === -1) {
 
 ```
 
-### Objects and Properties
+### 2.10. Objects and Properties
 
 ```javaScript
 var john = {
-		name: ‘John’,
-		lastName: ’Smith’,
+		name: 'John',
+		lastName: 'Smith',
 		yearOfBirth: 1990,
-		job: ‘teacher’,
+		job: 'teacher',
 		isMarried: false
 };
 
 console.log(john); //Print out all properties
 console.log(john.lastName); // Print out specific property
-console.log(john[‘lastName’]); // Print out specific property
+console.log(john['lastName']); // Print out specific property
 
-var xyz = ‘job’;
+var xyz = 'job';
 console.log(john[xyz]);
 
 john.lastName = 'Miller';
@@ -179,14 +179,14 @@ jane['isMarried'] = true;
 console.log(jane);
 ```
 
-### Objects and Methods
+### 2.11. Objects and Methods
 ```javaScript
 
 var john = {
-		name: ‘John’,
-		lastName: ’Smith’,
+		name: 'John',
+		lastName: 'Smith',
 		yearOfBirth: 1990,
-		job: ‘teacher’,
+		job: 'teacher',
 		isMarried: false,
 		family: ['Jane', 'Mark', 'Bob'],
 		/*
@@ -210,10 +210,10 @@ console.log(john);
 
 //v2.0
 var john = {
-		name: ‘John’,
-		lastName: ’Smith’,
+		name: 'John',
+		lastName: 'Smith',
 		yearOfBirth: 1990,
-		job: ‘teacher’,
+		job: 'teacher',
 		isMarried: false,
 		family: ['Jane', 'Mark', 'Bob'],
 		/*
@@ -230,7 +230,7 @@ console.log(john);
 
 ```
 
-### Loops and Iteration
+### 2.12. Loops and Iteration
 
 ```javaScript
 //for loops
@@ -269,8 +269,8 @@ for (var i = 0; i < 5; i++) {
 
 ```
 
-## History and Versions
-### A Very Short History of JavaScript
+## 3. History and Versions
+### 3.1. A Very Short History of JavaScript
 - **1996**: Changed from LiveScript to JavaScript to attract Java developers. **JavaScript has almost nothing to do with Java**.
 - **1997**: ECMAScript 1 became the fist version of the JavaScript language standard:
 	- ECMAScript: The language standard;
@@ -279,7 +279,7 @@ for (var i = 0; i < 5; i++) {
 - **2015**: ECMAScript 2015 (ES2015) was released: **the biggest update ever**.
 - **2016**: ECMAScript 2016 (ES2016) was released with minor changes only.
 
-### JavaScript Today
+### 3.2. JavaScript Today
 - `ES5`
 	- Fully supported in all modern browsers;
 	- Ready to be used today (2016).
@@ -292,7 +292,7 @@ for (var i = 0; i < 5; i++) {
 	- Almost no support in modern browsers;
 	- Can’t use it in production today (2016).
 
-### Why We’re Using ES5 in This Course
+### 3.3. Why We’re Using ES5 in This Course
 - ECMAScript 2015 still has very incomplete browser support today.
 - Almost all tutorials and code you find on the web today is till in ES5
 - When working on older codebases, these will be written in ES5.
