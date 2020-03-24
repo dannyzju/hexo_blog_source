@@ -10,6 +10,7 @@ tags:
 
 ## 1. Environment Setup Instructions
 ### 1.1. Environment Setup Instructions
+<!-- more -->
 
 (Install Octave and use Matlab online version)
 
